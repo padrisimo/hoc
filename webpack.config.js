@@ -1,12 +1,22 @@
+const webpack = require('webpack');
+
 module.exports = {
   entry: [
     './src/index.js'
   ],
+  devtool: 'eval',
   output: {
     path: __dirname,
     publicPath: '/',
     filename: 'bundle.js'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+        }
+    })
+  ],
   module: {
     loaders: [{
       exclude: /node_modules/,
@@ -21,6 +31,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: './',
+    inline: true,
   }
 };
