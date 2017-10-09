@@ -8,7 +8,14 @@ export default function(ComposedComponent) {
             router: React.PropTypes.object
         }
         componentWillMount() {
-            this.context.router.push('/');
+            if(!this.props.authenticated){
+              this.context.router.push('/');
+            }
+        }
+        componentWillUpdate(nextProps) {
+            if(!nextProps.authenticated){
+              this.context.router.push('/');
+            }
         }
         render() {
             return <ComposedComponent {...this.props} />
